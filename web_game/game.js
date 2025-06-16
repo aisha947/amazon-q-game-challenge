@@ -470,13 +470,6 @@ function draw() {
     
     // Draw UI
     drawUI();
-    
-    // Draw creator credit during gameplay
-    ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-    ctx.font = "italic 14px Arial";
-    ctx.textAlign = "right";
-    ctx.textBaseline = "bottom";
-    ctx.fillText("by Ayesha Ameen", CANVAS_WIDTH - 10, CANVAS_HEIGHT - 5);
 }
 
 // Draw clouds

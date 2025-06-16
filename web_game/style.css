@@ -309,4 +309,5 @@ h2 {
     background-color: rgba(0, 0, 0, 0.3);
     padding: 5px 10px;
     border-radius: 5px;
+    z-index: 10;
 }
