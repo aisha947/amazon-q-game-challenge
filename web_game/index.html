@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Falling Objects</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+        
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen">
+            <h1>Catch the<br>Falling Objects</h1>
+            <button id="start-button" class="game-button">Start Game</button>
+            
+            <div class="high-score">
+                <h2>High Score: <span id="high-score-value">0</span></h2>
+            </div>
+            
+            <div class="difficulty-section">
+                <h2>Select Difficulty:</h2>
+                <div class="difficulty-buttons">
+                    <button id="easy-button" class="difficulty-button selected">Easy</button>
+                    <button id="medium-button" class="difficulty-button">Medium</button>
+                    <button id="hard-button" class="difficulty-button">Hard</button>
+                </div>
+            </div>
+            
+            <div class="duration-section">
+                <h2>Game Duration:</h2>
+                <div class="slider-container">
+                    <input type="range" id="duration-slider" min="30" max="120" step="10" value="60" class="duration-slider">
+                    <div class="slider-value">60 seconds</div>
+                </div>
+            </div>
+            
+            <div class="music-section">
+                <h2>Select Music:</h2>
+                <div class="music-buttons">
+                    <button id="music1-button" class="music-button selected">Music 1</button>
+                    <button id="music2-button" class="music-button">Music 2</button>
+                    <button id="music3-button" class="music-button">Music 3</button>
+                    <button id="no-music-button" class="music-button">No Music</button>
+                </div>
+                <div class="custom-music">
+                    <label for="custom-music-input">Or upload your own music:</label>
+                    <input type="file" id="custom-music-input" accept="audio/*">
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h2>How to Play:</h2>
+                <ul>
+                    <li>Move the basket with your mouse to catch falling apples</li>
+                    <li>Avoid catching rocks (they reduce your score)</li>
+                    <li>Avoid bombs (they cost you a life)</li>
+                    <li>Press 'P' to pause and 'R' to resume</li>
+                </ul>
+            </div>
+            
+            <div class="creator-credit">
+                by Ayesha Ameen
+            </div>
+        </div>
+        
+        <!-- Pause Menu -->
+        <div id="pause-menu" class="screen">
+            <h1>Game Paused</h1>
+            <button id="resume-button" class="game-button">Resume Game</button>
+            <button id="quit-button" class="game-button">Quit to Menu</button>
+            
+            <div class="creator-credit">
+                by Ayesha Ameen
+            </div>
+        </div>
+        
+        <!-- Game Over Screen -->
+        <div id="game-over" class="screen">
+            <h1>Game Over</h1>
+            <div class="stats">
+                <p>Final Score: <span id="final-score">0</span></p>
+                <p>High Score: <span id="end-high-score">0</span></p>
+                <p>Apples Caught: <span id="apples-caught">0</span></p>
+                <p>Rocks Avoided: <span id="rocks-avoided">0</span></p>
+                <p>Difficulty Level: <span id="difficulty-level">Easy</span></p>
+            </div>
+            <button id="play-again-button" class="game-button">Play Again</button>
+            <button id="menu-button" class="game-button">Main Menu</button>
+            
+            <div class="creator-credit">
+                by Ayesha Ameen
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio elements -->
+    <audio id="catch-sound" src="sounds/catch.wav" preload="auto"></audio>
+    <audio id="miss-sound" src="sounds/miss.wav" preload="auto"></audio>
+    <audio id="bad-catch-sound" src="sounds/bad_catch.wav" preload="auto"></audio>
+    <audio id="bomb-sound" src="sounds/bomb.wav" preload="auto"></audio>
+    <audio id="game-over-sound" src="sounds/game_over.wav" preload="auto"></audio>
+    <audio id="background-music1" src="sounds/music1.wav" loop preload="auto"></audio>
+    <audio id="background-music2" src="sounds/music2.wav" loop preload="auto"></audio>
+    <audio id="background-music3" src="sounds/music3.wav" loop preload="auto"></audio>
+    <audio id="custom-music-player" loop></audio>
+    
+    <script src="game.js"></script>
+</body>
+</html>
