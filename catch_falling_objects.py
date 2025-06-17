@@ -429,6 +429,15 @@ class CatchGame:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
+            # Add touch support for mobile devices
+            elif event.type == pygame.FINGERMOTION:
+                # Convert touch position to screen coordinates
+                touch_x = event.x * self.WIDTH
+                self.basket_x = touch_x
+            elif event.type == pygame.FINGERDOWN:
+                # Handle initial touch
+                touch_x = event.x * self.WIDTH
+                self.basket_x = touch_x
         
         return True
 
