@@ -114,7 +114,7 @@ function saveHighScore() {
     }
 }
 
-// Set up event listeners
+    // Set up event listeners
 function setupEventListeners() {
     // Mouse movement for basket control
     canvas.addEventListener("mousemove", function(event) {
@@ -128,18 +128,32 @@ function setupEventListeners() {
         if (event.touches.length > 0) {
             const rect = canvas.getBoundingClientRect();
             const touch = event.touches[0];
-            basketX = touch.clientX - rect.left;
+            const touchX = touch.clientX - rect.left;
+            
+            // Calculate the position relative to canvas size
+            const canvasScale = canvas.width / canvas.clientWidth;
+            basketX = touchX * canvasScale;
+            
+            // Ensure basket stays within bounds
+            basketX = Math.max(BASKET_WIDTH/2, Math.min(CANVAS_WIDTH - BASKET_WIDTH/2, basketX));
         }
-    });
+    }, { passive: false });
     
     canvas.addEventListener("touchstart", function(event) {
         event.preventDefault(); // Prevent scrolling
         if (event.touches.length > 0) {
             const rect = canvas.getBoundingClientRect();
             const touch = event.touches[0];
-            basketX = touch.clientX - rect.left;
+            const touchX = touch.clientX - rect.left;
+            
+            // Calculate the position relative to canvas size
+            const canvasScale = canvas.width / canvas.clientWidth;
+            basketX = touchX * canvasScale;
+            
+            // Ensure basket stays within bounds
+            basketX = Math.max(BASKET_WIDTH/2, Math.min(CANVAS_WIDTH - BASKET_WIDTH/2, basketX));
         }
-    });
+    }, { passive: false });
     
     // Keyboard controls
     document.addEventListener("keydown", function(event) {
@@ -151,7 +165,62 @@ function setupEventListeners() {
             if (gameState === "paused") {
                 resumeGame();
             }
+        } else if (event.key === "ArrowLeft" || event.key === "Left") {
+            // Move basket left
+            basketX = Math.max(BASKET_WIDTH/2, basketX - 20);
+        } else if (event.key === "ArrowRight" || event.key === "Right") {
+            // Move basket right
+            basketX = Math.min(CANVAS_WIDTH - BASKET_WIDTH/2, basketX + 20);
         }
+    });
+    
+    // Mobile control buttons
+    const leftButton = document.getElementById("left-button");
+    const rightButton = document.getElementById("right-button");
+    
+    // Handle left button
+    leftButton.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        moveBasketLeft();
+    });
+    
+    leftButton.addEventListener("mousedown", function(event) {
+        moveBasketLeft();
+    });
+    
+    // Handle right button
+    rightButton.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        moveBasketRight();
+    });
+    
+    rightButton.addEventListener("mousedown", function(event) {
+        moveBasketRight();
+    });
+    
+    // Continuous movement while button is held
+    let leftInterval, rightInterval;
+    
+    leftButton.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        if (leftInterval) clearInterval(leftInterval);
+        leftInterval = setInterval(moveBasketLeft, 50);
+    });
+    
+    leftButton.addEventListener("touchend", function(event) {
+        event.preventDefault();
+        if (leftInterval) clearInterval(leftInterval);
+    });
+    
+    rightButton.addEventListener("touchstart", function(event) {
+        event.preventDefault();
+        if (rightInterval) clearInterval(rightInterval);
+        rightInterval = setInterval(moveBasketRight, 50);
+    });
+    
+    rightButton.addEventListener("touchend", function(event) {
+        event.preventDefault();
+        if (rightInterval) clearInterval(rightInterval);
     });
     
     // Button click handlers
@@ -202,6 +271,15 @@ function setupEventListeners() {
             setMusic("custom");
         }
     });
+}
+
+// Helper functions for basket movement
+function moveBasketLeft() {
+    basketX = Math.max(BASKET_WIDTH/2, basketX - 15);
+}
+
+function moveBasketRight() {
+    basketX = Math.min(CANVAS_WIDTH - BASKET_WIDTH/2, basketX + 15);
 }
 
 // Set difficulty
