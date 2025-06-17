@@ -84,6 +84,9 @@ window.onload = function() {
     // Update duration display
     document.querySelector('.slider-value').textContent = `${GAME_DURATION} seconds`;
     
+    // Show creator credit on main menu
+    document.querySelector('.creator-credit').style.display = "block";
+    
     // Start the game loop
     requestAnimationFrame(gameLoop);
 };
@@ -117,6 +120,25 @@ function setupEventListeners() {
     canvas.addEventListener("mousemove", function(event) {
         const rect = canvas.getBoundingClientRect();
         basketX = event.clientX - rect.left;
+    });
+    
+    // Touch support for mobile devices
+    canvas.addEventListener("touchmove", function(event) {
+        event.preventDefault(); // Prevent scrolling
+        if (event.touches.length > 0) {
+            const rect = canvas.getBoundingClientRect();
+            const touch = event.touches[0];
+            basketX = touch.clientX - rect.left;
+        }
+    });
+    
+    canvas.addEventListener("touchstart", function(event) {
+        event.preventDefault(); // Prevent scrolling
+        if (event.touches.length > 0) {
+            const rect = canvas.getBoundingClientRect();
+            const touch = event.touches[0];
+            basketX = touch.clientX - rect.left;
+        }
     });
     
     // Keyboard controls
@@ -252,6 +274,9 @@ function startGame() {
     pauseMenu.style.display = "none";
     gameOverScreen.style.display = "none";
     
+    // Hide creator credit during gameplay
+    document.querySelector('.creator-credit').style.display = "none";
+    
     // Start music
     if (currentMusic) {
         currentMusic.currentTime = 0;
@@ -294,6 +319,9 @@ function quitToMenu() {
     mainMenu.style.display = "flex";
     pauseMenu.style.display = "none";
     gameOverScreen.style.display = "none";
+    
+    // Show creator credit on main menu
+    document.querySelector('.creator-credit').style.display = "block";
     
     // Stop music
     if (currentMusic) {
