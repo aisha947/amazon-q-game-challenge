@@ -174,55 +174,6 @@ function setupEventListeners() {
         }
     });
     
-    // Mobile control buttons
-    const leftButton = document.getElementById("left-button");
-    const rightButton = document.getElementById("right-button");
-    
-    // Handle left button
-    leftButton.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        moveBasketLeft();
-    });
-    
-    leftButton.addEventListener("mousedown", function(event) {
-        moveBasketLeft();
-    });
-    
-    // Handle right button
-    rightButton.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        moveBasketRight();
-    });
-    
-    rightButton.addEventListener("mousedown", function(event) {
-        moveBasketRight();
-    });
-    
-    // Continuous movement while button is held
-    let leftInterval, rightInterval;
-    
-    leftButton.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        if (leftInterval) clearInterval(leftInterval);
-        leftInterval = setInterval(moveBasketLeft, 50);
-    });
-    
-    leftButton.addEventListener("touchend", function(event) {
-        event.preventDefault();
-        if (leftInterval) clearInterval(leftInterval);
-    });
-    
-    rightButton.addEventListener("touchstart", function(event) {
-        event.preventDefault();
-        if (rightInterval) clearInterval(rightInterval);
-        rightInterval = setInterval(moveBasketRight, 50);
-    });
-    
-    rightButton.addEventListener("touchend", function(event) {
-        event.preventDefault();
-        if (rightInterval) clearInterval(rightInterval);
-    });
-    
     // Button click handlers
     document.getElementById("start-button").addEventListener("click", startGame);
     document.getElementById("resume-button").addEventListener("click", resumeGame);
@@ -273,14 +224,7 @@ function setupEventListeners() {
     });
 }
 
-// Helper functions for basket movement
-function moveBasketLeft() {
-    basketX = Math.max(BASKET_WIDTH/2, basketX - 15);
-}
 
-function moveBasketRight() {
-    basketX = Math.min(CANVAS_WIDTH - BASKET_WIDTH/2, basketX + 15);
-}
 
 // Set difficulty
 function setDifficulty(newDifficulty) {
