@@ -267,11 +267,6 @@ h2 {
 }
 
 /* Slider for game duration */
-.duration-slider {
-    width: 100%;
-    margin: 15px 0;
-}
-
 .slider-container {
     display: flex;
     flex-direction: column;
@@ -369,6 +364,7 @@ h2 {
         padding: 2px 5px;
     }
 }
+
 .creator-credit {
     position: absolute;
     bottom: 10px;
